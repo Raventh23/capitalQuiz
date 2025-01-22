@@ -52,15 +52,33 @@ capitalDict = {
     'Wisconsin': 'Madison',
     'Wyoming': 'Cheyenne'
 }
-stateList = list(capitalDict.keys())
-randomState = stateList[random.randint(0,49)]
-userGuess = input(f"guess the capitol of {randomState}: ")
-playagain = "yes"
-while playagain == "yes":
-    if capitalDict[randomState] == userGuess:
-        print("correct")
+#ask the user if they wish to play, then make a list of 10 of the states test the user than give a percentage right
+def main():
+    print("Welcome to the US State Capital Quiz!")
+    print("Would you like to play? (yes or no)")
+    play = input()
+    if play == "yes":
+        play_game()
     else:
-        print(f"incorrect the correct answer was {capitalDict[randomState]}")
-    playagain = input("do you want to play again? yes or no: ")
-    randomState = stateList[random.randint(0,49)]
-    userGuess = input(f"guess the capitol of {randomState}: ")
+        print("Goodbye")
+        return
+
+def play_game():
+    states = list(capitalDict.keys())
+    random.shuffle(states)
+    correct = 0
+    for i in range(10):
+        state = states[i]
+        capital = capitalDict[state]
+        print("What is the capital of " + state + "?")
+        guess = input()
+        if guess == capital:
+            print("Correct!")
+            correct += 1
+        else:
+            print("Incorrect. The capital of " + state + " is " + capital + ".")
+    print("You got " + str(correct) + " out of 10 correct.")
+    print("That's " + str(correct * 10) + "%.")
+    return
+
+main()
